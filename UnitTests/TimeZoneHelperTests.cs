@@ -24,7 +24,7 @@ namespace UnitTests
         {
             // Arrange
             var localTime = new DateTime(2023, 6, 15, 14, 30, 0, DateTimeKind.Local);
-            var timeZoneId = "America/Chicago";
+            var timeZoneId = "Central Standard Time";
 
             // Act
             var (time, day) = TimezoneUtilities.GetTimeAndDayInTimezone(new UtcDateTime(localTime), timeZoneId);
