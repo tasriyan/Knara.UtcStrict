@@ -1,4 +1,8 @@
 # Knara.UtcStrict
+[![Build and Test](https://github.com/tasriyan/Knara.UtcStrict/actions/workflows/build.yml/badge.svg)](https://github.com/tasriyan/Knara.UtcStrict/actions/workflows/build.yml)
+[![NuGet](https://img.shields.io/nuget/v/Knara.UtcStrict.svg)](https://www.nuget.org/packages/Knara.UtcStrict/)
+[![NuGet](https://img.shields.io/nuget/dt/Knara.UtcStrict.svg)](https://www.nuget.org/packages/Knara.UtcStrict/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Opinionated library that enforces UTC time handling in .NET applications.
 
