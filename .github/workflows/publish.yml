@@ -1,0 +1,40 @@
+name: Publish NuGet Packages
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            9.0.x
+            8.0.x
+            
+      - name: Clean build artifacts
+        run: |
+          dotnet clean --configuration Release
+          rm -rf ./packages
+      
+      - name: Restore dependencies
+        run: |
+          dotnet restore Knara.UtcStrict/Knara.UtcStrict.csproj
+
+      - name: Build
+        run: |
+          dotnet build Knara.UtcStrict/Knara.UtcStrict.csproj --configuration Release --no-restore
+
+      - name: Pack specific packages
+        run: |
+          dotnet pack Knara.UtcStrict/Knara.UtcStrict.csproj --configuration Release --no-build --output ./packages
+
+      - name: Publish to NuGet
+        run: dotnet nuget push ./packages/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate

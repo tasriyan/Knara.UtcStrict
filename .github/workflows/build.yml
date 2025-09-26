@@ -1,0 +1,62 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '**/*.cs'
+      - '**/*.csproj'
+      - '**/*.sln'
+      - '**/*.config'
+      - '**/Directory.Build.props'
+      - '**/Directory.Build.targets'
+      - 'global.json'
+      - 'nuget.config'
+      - '.github/workflows/build.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - '**/*.cs'
+      - '**/*.csproj'
+      - '**/*.sln'
+      - '**/*.config'
+      - '**/Directory.Build.props'
+      - '**/Directory.Build.targets'
+      - 'global.json'
+      - 'nuget.config'
+      - '.github/workflows/build.yml'
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for manual build'
+        required: false
+        default: 'Manual trigger'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            9.0.x
+            8.0.x
+
+      - name: Restore dependencies
+        run: |
+          dotnet restore Knara.UtcStrict/Knara.UtcStrict.csproj 
+          dotnet restore UnitTests/UnitTests.csproj
+  
+      - name: Build
+        run: |
+          dotnet build Knara.UtcStrict/Knara.UtcStrict.csproj --configuration Release --no-restore
+          dotnet build UnitTests/UnitTests.csproj --configuration Release --no-restore
+
+      - name: Test
+        run: |
+          dotnet test UnitTests/UnitTests.csproj --configuration Release --no-build --verbosity normal

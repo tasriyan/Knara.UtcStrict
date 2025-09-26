@@ -1,0 +1,20 @@
+﻿<Project>
+  <PropertyGroup>
+    <Version>1.0.0</Version>
+    <Authors>Tatyana Asriyan</Authors>
+    <PackageProjectUrl>https://github.com/tasriyan/Knara.UtcStrict</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/tasriyan/Knara.UtcStrict</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>datetime;timezone;utc;scheduling;time-window</PackageTags>
+    <Description>A library that enforces UTC time handling in .NET applications. Includes UtcSchedule and UtcTimeWindow value types for common scheduling scenarios.</Description>
+    <IsPackable>false</IsPackable>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>knara.png</PackageIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)knara.png" Pack="true" PackagePath="knara.png" />
+    <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="README.md" />
+  </ItemGroup>
+</Project>
