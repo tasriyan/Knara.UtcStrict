@@ -8,7 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="UtcDateTimeOffset.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Bcl.HashCode" Version="6.0.0" />
+    <PackageReference Include="System.Text.Json" Version="9.0.9" />
   </ItemGroup>
 
 </Project>

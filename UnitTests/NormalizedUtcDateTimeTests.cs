@@ -164,7 +164,7 @@ namespace UnitTests
         {
             // Arrange
             var earlier = new DateTime(2023, 6, 15, 14, 30, 0, DateTimeKind.Utc);
-            var later = new DateTime(2023, 6, 15, 15, 30, 0, DateTimeKind.Utc);
+            var later = new DateTime(2023, 6, 16, 13, 30, 0, DateTimeKind.Utc);
             var normalized1 = new UtcDateTime(earlier);
             var normalized2 = new UtcDateTime(later);
 
@@ -172,9 +172,18 @@ namespace UnitTests
             Assert.True(normalized1 <= normalized2);
             Assert.True(normalized1 <= normalized1);
             Assert.False(normalized2 <= normalized1);
-        }
 
-        [Fact]
+			// Additional check for different dates
+			normalized1 = DateTimeOffset.UtcNow.AddHours(1);
+			normalized2 = DateTimeOffset.UtcNow.AddDays(7);
+
+			// Act & Assert
+			Assert.True(normalized1 <= normalized2);
+			Assert.True(normalized1 <= normalized1);
+			Assert.False(normalized2 <= normalized1);
+		}
+
+		[Fact]
         public void GreaterThanOrEqualOperator_WorksCorrectly()
         {
             // Arrange

@@ -363,5 +363,31 @@ namespace UnitTests
             Assert.Equal(DateTimeKind.Utc, schedule.EnableOn.DateTime.Kind);
             Assert.Equal(DateTimeKind.Utc, schedule.DisableOn.DateTime.Kind);
         }
-    }
+
+        [Fact]
+        public void JsonSerialization_AndDeserialization_WorksCorrectly()
+        {
+            // Arrange
+            var enableOn = new DateTime(2024, 1, 15, 10, 0, 0, DateTimeKind.Utc);
+            var disableOn = new DateTime(2024, 1, 15, 18, 0, 0, DateTimeKind.Utc);
+            var schedule = new UtcSchedule(new UtcDateTime(enableOn), new UtcDateTime(disableOn));
+            // Act
+            var json = System.Text.Json.JsonSerializer.Serialize(schedule);
+            var deserializedSchedule = System.Text.Json.JsonSerializer.Deserialize<UtcSchedule>(json);
+            // Assert
+            Assert.NotNull(deserializedSchedule);
+            Assert.Equal(schedule.EnableOn.DateTime, deserializedSchedule!.EnableOn.DateTime);
+            Assert.Equal(schedule.DisableOn.DateTime, deserializedSchedule.DisableOn.DateTime);
+
+            // Additional check for DateTimeKind
+            schedule = UtcSchedule.CreateSchedule(DateTimeOffset.UtcNow.AddHours(1), DateTimeOffset.UtcNow.AddDays(7));
+			// Act
+			json = System.Text.Json.JsonSerializer.Serialize(schedule);
+			deserializedSchedule = System.Text.Json.JsonSerializer.Deserialize<UtcSchedule>(json);
+			// Assert
+			Assert.NotNull(deserializedSchedule);
+			Assert.Equal(schedule.EnableOn.DateTime, deserializedSchedule!.EnableOn.DateTime);
+			Assert.Equal(schedule.DisableOn.DateTime, deserializedSchedule.DisableOn.DateTime);
+		}
+	}
 }
