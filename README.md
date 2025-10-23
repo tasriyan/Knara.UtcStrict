@@ -183,5 +183,4 @@ public class FeatureService
 - **Clear business intent** - `HasSchedule()` and `HasWindow()` methods
 
 ## License
-
-MIT License
+MIT License. Copyright 2025 Tatyana Asriyan
